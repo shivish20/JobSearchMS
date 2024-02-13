@@ -38,16 +38,15 @@ public class JobServiceImpl implements JobService {
             jobRepository.deleteById(id);
             return true;
         } catch (Exception e) {
-//            throw new RuntimeException(e);
             return false;
         }
     }
 
     @Override
     public boolean updateJob(Long id, Job updateJob) {
-        Optional<Job> optionalJob= jobRepository.findById(id);
-        if (optionalJob.isPresent()){
-            Job job=optionalJob.get();
+        Optional<Job> optionalJob = jobRepository.findById(id);
+        if (optionalJob.isPresent()) {
+            Job job = optionalJob.get();
             job.setTitle(updateJob.getTitle());
             job.setDescription(updateJob.getDescription());
             job.setMinSalary(updateJob.getMinSalary());

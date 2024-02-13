@@ -23,21 +23,21 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void updateCompanyById(Long id, Company company) {
+    public Company updateCompanyById(Long id, Company company) {
         Optional<Company> optionalCompany = companyRepository.findById(id);
         if (optionalCompany.isPresent()) {
             Company companyUpdate = optionalCompany.get();
             companyUpdate.setName(company.getName());
             companyUpdate.setDescription(company.getDescription());
-            companyRepository.save(companyUpdate);
+            return companyRepository.save(companyUpdate);
         }
+        return company;
     }
 
     @Override
     public void addCompanies(Company company) {
         if (company != null) {
             companyRepository.save(company);
-        }
     }
 
     @Override
