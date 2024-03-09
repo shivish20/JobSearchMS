@@ -3,19 +3,17 @@ package com.shivish20.company_ms.service.impl;
 import com.shivish20.company_ms.model.Company;
 import com.shivish20.company_ms.repository.CompanyRepository;
 import com.shivish20.company_ms.service.CompanyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
     private final CompanyRepository companyRepository;
-
-    public CompanyServiceImpl(CompanyRepository companyRepository) {
-        this.companyRepository = companyRepository;
-    }
-
 
     @Override
     public List<Company> getAllCompanies() {
@@ -35,9 +33,11 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void addCompanies(Company company) {
-        if (company != null) {
+    public boolean addCompanies(Company company) {
+        if (Objects.nonNull(company)) {
             companyRepository.save(company);
+            return true;
+        }return false;
     }
 
     @Override
@@ -51,7 +51,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company getCompanyById(Long id) {
-
         return companyRepository.findById(id).orElse(null);
     }
 }

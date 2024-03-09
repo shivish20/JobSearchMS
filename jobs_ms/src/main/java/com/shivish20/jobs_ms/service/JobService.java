@@ -1,15 +1,16 @@
 package com.shivish20.jobs_ms.service;
 
 import com.shivish20.jobs_ms.model.Job;
+import com.shivish20.jobs_ms.dto.JobDTO;
 
 import java.util.List;
 
 public interface JobService {
-    List<Job> findAllJobs();
+    List<JobDTO> findAllJobs();
 
     void createJob(Job job);
 
-    Job getJobById(Long id);
+    JobDTO getJobById(Long id);
 
     boolean deleteJobById(Long id);
 

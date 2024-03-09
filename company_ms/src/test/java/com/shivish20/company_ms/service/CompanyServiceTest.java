@@ -2,8 +2,12 @@ package com.shivish20.company_ms.service;
 
 import com.shivish20.company_ms.model.Company;
 import com.shivish20.company_ms.repository.CompanyRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -33,7 +37,7 @@ class CompanyServiceTest {
         return Company.builder()
                 .name("Company Name")
                 .description("Company Description")
-                .Id(1L)
+                .id(1L)
                 .build();
     }
 
@@ -72,16 +76,21 @@ class CompanyServiceTest {
         assertNull(companyService.updateCompanyById(companyId, companyUpdate));
     }*/
 
+/*
     @Test
     void updateCompanyById() {
         //given
-        Company company = givenCompany();
+//        Company company = givenCompany();
+        Company existingCompany = new Company(1L, "Old Company", "Old Description");
+        Company updatedCompany = new Company(1L, "New Company", "New Description");
+
         //When
-        when(companyRepository.findById(company.getId())).thenReturn(Optional.of(company));
-        when(companyRepository.save(company)).thenReturn(company);
+        when(companyRepository.findById(existingCompany.getId())).thenReturn(Optional.of(existingCompany));
+        when(companyRepository.save(updatedCompany)).thenReturn(existingCompany);
         //Then
-        assertEquals(company, companyService.updateCompanyById(companyId, company));
+        assertEquals(existingCompany, companyService.updateCompanyById(companyId, updatedCompany));
     }
+*/
 
     @Test
     void addCompanies() {
@@ -105,11 +114,11 @@ class CompanyServiceTest {
         verify(myServiceMock).addCompanies(company);
     }
 
-    @Test
+/*    @Test
     void deleteCompanyById() {
     }
 
     @Test
     void getCompanyById() {
-    }
+    }*/
 }

@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/jobs_ms/pom.xml" />
         <option value="$PROJECT_DIR$/company_ms/pom.xml" />
         <option value="$PROJECT_DIR$/review_ms/pom.xml" />
+        <option value="$PROJECT_DIR$/service-reg/pom.xml" />
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />

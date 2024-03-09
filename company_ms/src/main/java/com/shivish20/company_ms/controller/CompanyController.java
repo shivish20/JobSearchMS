@@ -2,20 +2,20 @@ package com.shivish20.company_ms.controller;
 
 import com.shivish20.company_ms.model.Company;
 import com.shivish20.company_ms.service.CompanyService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/companies")
+@RequiredArgsConstructor
 public class CompanyController {
-    private final CompanyService companyService;
 
-    public CompanyController(CompanyService companyService) {
-        this.companyService = companyService;
-    }
+    private final CompanyService companyService;
 
     @GetMapping
     public ResponseEntity<List<Company>> getAllCompanies() {
@@ -25,7 +25,7 @@ public class CompanyController {
     @GetMapping("/{id}")
     public ResponseEntity<Company> getCompany(@PathVariable Long id) {
         Company company = companyService.getCompanyById(id);
-        if (company != null) {
+        if (Objects.nonNull(company)) {
             return new ResponseEntity<>(company, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -34,8 +34,12 @@ public class CompanyController {
 
     @PostMapping
     public ResponseEntity<String> addCompanies(@RequestBody Company company) {
-        companyService.addCompanies(company);
-        return new ResponseEntity<>("company added successfully", HttpStatus.CREATED);
+        boolean isCompanyAdded = companyService.addCompanies(company);
+        if (isCompanyAdded) {
+            return new ResponseEntity<>("company added successfully", HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>("unsuccessful company addition", HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/{id}")

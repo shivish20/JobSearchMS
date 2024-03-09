@@ -2,6 +2,7 @@ package com.shivish20.jobs_ms.controller;
 
 import com.shivish20.jobs_ms.model.Job;
 import com.shivish20.jobs_ms.service.JobService;
+import com.shivish20.jobs_ms.dto.JobDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class JobController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Job>> getAllJobs() {
+    public ResponseEntity<List<JobDTO>> getAllJobs() {
         return new ResponseEntity<>(jobService.findAllJobs(), HttpStatus.OK);
     }
 
@@ -29,10 +30,10 @@ public class JobController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Job> getJobById(@PathVariable Long id) {
-        Job job = jobService.getJobById(id);
-        if (job != null) {
-            return new ResponseEntity<>(job, HttpStatus.OK);
+    public ResponseEntity<JobDTO> getJobById(@PathVariable Long id) {
+        JobDTO jobWithCompanyDTO= jobService.getJobById(id);
+        if (jobWithCompanyDTO != null) {
+            return new ResponseEntity<>(jobWithCompanyDTO, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
